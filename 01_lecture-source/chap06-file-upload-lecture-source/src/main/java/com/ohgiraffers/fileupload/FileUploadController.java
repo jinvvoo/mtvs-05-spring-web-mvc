@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.UUID;
 
 @Controller
 public class FileUploadController {
@@ -27,6 +28,16 @@ public class FileUploadController {
         if (!dir.exists()) {
             dir.mkdirs(); //루드경로 딱하나 폴더만들면 mkdir, 여러개의 폴더면 mkdirs
         }
+
+        String originFileName = singleFile.getOriginalFilename();
+        System.out.println("originFileName = " + originFileName);
+        String ext = originFileName.substring(originFileName.lastIndexOf("."));
+        System.out.println("ext = " + ext);
+        String savedName = UUID.randomUUID().toString().replaceAll("-", "") + ext; //문자열로 변경하기 위해 tostring
+        //uuid 식별가능한 고유아이디 생성하기위한 유틸
+        System.out.println("savedName = " + savedName);
+
+
 
         return "result";
     }
