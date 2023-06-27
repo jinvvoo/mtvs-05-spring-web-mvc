@@ -41,8 +41,10 @@ public class FileUploadController {
         try {
             singleFile.transferTo(new File(filePath + "/" + savedName));
             model.addAttribute("message", "파일 업로드 성공!");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {       //실패시 파일 삭제해주는 작업
+            new File(filePath + "/" + savedName).delete();
+            model.addAttribute("message", "파일 업로드 실패!");
+//            throw new RuntimeException(e);
         }
 
 
