@@ -14,6 +14,19 @@
         <input type="submit">
     </form>
 
+  <h3>multi file 업로드하기</h3>
+  <form action="multi-file" method="post" enctype="multipart/form-data">
+      파일 : <input type="file" name="multipartFiles" multiple="multiple"><br>
+      파일 설명 : <input type="text" name="multiFileDescription"><br>
+      <input type="submit">
+  </form>
+
+<!--
+속성값과 속성명이 같으면 생략가능
+multiple="multiple"
+multiple
+-->
+
 
 </body>
 </html>
