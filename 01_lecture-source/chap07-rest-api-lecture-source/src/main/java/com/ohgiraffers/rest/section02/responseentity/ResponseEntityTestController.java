@@ -78,8 +78,40 @@ public class ResponseEntityTestController {
         return ResponseEntity
                 .created(URI.create("/entity/users/" + users.get(users.size() - 1).getNo()))          // 201번 응답코드
                 .build();
+    }
+
+    @PostMapping("user/{userNo}")
+    public ResponseEntity<?> modifyUser(@RequestBody UserDTO modifyInfo, @PathVariable int userNo) {
+
+        UserDTO foundUser =
+                users.stream()
+                        .filter(user -> user.getNo() == userNo)
+                        .collect(Collectors.toList())
+                        .get(0);
+        foundUser.setId(modifyInfo.getId());
+        foundUser.setPwd(modifyInfo.getPwd());
+        foundUser.setName(modifyInfo.getName());
+
+        return ResponseEntity
+                .created(URI.create("/entity/users/" + userNo))
+                .build();
+    }
+
+    @DeleteMapping("/users/{userNo}")
+    public ResponseEntity<?> removeUser(@PathVariable int userNo) {
+
+        UserDTO foundUser = users.stream()
+                .filter(user -> user.getNo() == userNo)
+                .collect(Collectors.toList())
+                .get(0);
+        users.remove(foundUser);
+
+        return ResponseEntity
+                .noContent()        //204
+                .build();
 
     }
+
 }
 
 
